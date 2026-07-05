@@ -4,15 +4,17 @@
 // 1. Particle System (Falling Sakura Petals)
 // ==========================================
 class SakuraParticle {
-    constructor(canvas) {
+    constructor(canvas, initiallyDistributed = false) {
         this.canvas = canvas;
         this.reset();
-        this.y = Math.random() * canvas.height; // Distribute initially
+        if (initiallyDistributed) {
+            this.y = Math.random() * canvas.height; // Distribute initially across the viewport
+        }
     }
 
     reset() {
         this.x = Math.random() * this.canvas.width;
-        this.y = -20;
+        this.y = -20; // Standard reset is just above the screen
         this.size = Math.random() * 12 + 8; // Size of petal
         this.speedY = Math.random() * 1.8 + 1.8; // Energetic, lively downward speed
         this.speedX = Math.random() * 1.5 - 0.5; // Drift
@@ -78,19 +80,73 @@ function initSakuraParticles() {
     window.addEventListener('resize', resizeCanvas);
     resizeCanvas();
 
+    // 1. Read persistent choice from localStorage
+    const savedState = localStorage.getItem('isPetalsEnabled');
+    let isPetalsEnabled = savedState === 'true'; // Defaults to false if null or 'false'
+    let animationId = null;
+
+    // 2. Initialize particles
+    // If enabled on load, distribute them across the screen. Otherwise, prepare them off-screen.
     for (let i = 0; i < maxParticles; i++) {
-        particles.push(new SakuraParticle(canvas));
+        particles.push(new SakuraParticle(canvas, isPetalsEnabled));
     }
 
+    // 3. Animation loop
     function animate() {
+        // Stop the loop if it has been disabled
+        if (!isPetalsEnabled) {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            return;
+        }
+
         ctx.clearRect(0, 0, canvas.width, canvas.height);
-        particles.forEach((p) => {
+        
+        particles.forEach(p => {
             p.update();
             p.draw(ctx);
         });
-        requestAnimationFrame(animate);
+
+        // Request the next frame only if still enabled
+        animationId = requestAnimationFrame(animate);
     }
-    animate();
+
+    // 4. Toggle button setup
+    const toggleBtn = document.getElementById('toggle-petals-btn');
+    const toggleText = document.getElementById('petals-text');
+
+    if (toggleBtn && toggleText) {
+        // Apply the correct text and start the animation if it was left ON [1]
+        if (isPetalsEnabled) {
+            toggleText.textContent = "Turn Petals Off";
+            animate(); 
+        } else {
+            toggleText.textContent = "Turn Petals On";
+        }
+
+        toggleBtn.addEventListener('click', () => {
+            isPetalsEnabled = !isPetalsEnabled;
+            localStorage.setItem('isPetalsEnabled', isPetalsEnabled); // Persist state across pages
+
+            if (isPetalsEnabled) {
+                toggleText.textContent = "Turn Petals Off";
+                
+                // Stagger all particles at different heights above the screen 
+                // so they trickle down naturally instead of dropping in a clump
+                particles.forEach(p => {
+                    p.reset();
+                    p.y = -Math.random() * 300 - 20; 
+                });
+
+                animate(); // Kickstart the animation loop
+            } else {
+                toggleText.textContent = "Turn Petals On";
+                
+                // Stop the animation and immediately clear any frozen petals off the screen
+                cancelAnimationFrame(animationId);
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+            }
+        });
+    }
 }
 
 // ==========================================
@@ -240,66 +296,9 @@ function setupInteractiveChat() {
 }
 
 // ==========================================
-// 4. Component Loader (DRY Implementation)
+// 4. Global Initialization
 // ==========================================
-const COMPONENTS = {
-    nav: `
-<nav class="fixed top-0 left-0 right-0 z-50 bg-white/30 backdrop-blur-md border-b border-white/20 px-6 py-4">
-    <div class="max-w-[1200px] mx-auto flex items-center justify-between">
-        <a href="index.html" class="flex items-center gap-2" aria-label="Momo Home">
-            <svg class="w-8 h-8 text-primary" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                <path d="M12 2C12 2 14 6 18 6C22 6 22 10 22 12C22 18 12 22 12 22C12 22 2 18 2 12C2 10 2 6 6 6C10 6 12 2 12 2Z"></path>
-            </svg>
-            <span class="font-heading font-bold text-xl text-textColor tracking-tight">Momo</span>
-        </a>
-        <div class="flex items-center gap-6 md:gap-8">
-            <a href="features.html" id="nav-features" class="font-heading font-medium text-textColor hover:text-primary transition-colors">Features</a>
-            <a href="demo.html" id="nav-demo" class="font-heading font-medium text-textColor hover:text-primary transition-colors">Demo</a>
-            <a href="index.html#waitlist-section" class="bg-primary text-white font-heading font-bold px-6 py-2 rounded-full hover:bg-primaryHover transition-colors shadow-sm">Waitlist</a>
-        </div>
-    </div>
-</nav>
-    `,
-    footer: `
-<footer class="bg-white/10 backdrop-blur-sm py-8 border-t border-white/20 text-center z-10 font-sans text-sm text-textColor/60 mt-auto">
-    <p>© 2026 Momo. Powered by Sakura Glass.</p>
-</footer>
-    `
-};
-
-function loadComponent(id, componentKey) {
-    const element = document.getElementById(id);
-    if (!element) return;
-
-    const html = COMPONENTS[componentKey];
-    if (!html) {
-        console.error(`Component ${componentKey} not found`);
-        return;
-    }
-    
-    element.innerHTML = html;
-
-    // Handle active navigation state if it's the nav
-    if (id === 'nav-placeholder') {
-        const currentPage = window.location.pathname.split('/').pop() || 'index.html';
-        const navLinks = document.querySelectorAll('nav a');
-        navLinks.forEach(link => {
-            if (link.getAttribute('href') === currentPage) {
-                link.classList.add('text-primary');
-                link.classList.remove('text-textColor');
-            }
-        });
-    }
-}
-
-function setupSharedComponents() {
-    loadComponent('nav-placeholder', 'nav');
-    loadComponent('footer-placeholder', 'footer');
-}
-
-// Global initialization
 document.addEventListener('DOMContentLoaded', async () => {
-    await setupSharedComponents();
     initSakuraParticles();
     setupWaitlists();
     setupInteractiveChat();
