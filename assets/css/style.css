@@ -78,13 +78,13 @@ body {
 /* Floating Animations */
 @keyframes float {
     0% { transform: translateY(0px) rotate(0deg); }
-    50% { transform: translateY(-12px) rotate(1deg); }
+    50% { transform: translateY(-6px) rotate(1deg); }
     100% { transform: translateY(0px) rotate(0deg); }
 }
 
 @keyframes float-reverse {
     0% { transform: translateY(0px) rotate(0deg); }
-    50% { transform: translateY(12px) rotate(-1deg); }
+    50% { transform: translateY(6x) rotate(-1deg); }
     100% { transform: translateY(0px) rotate(0deg); }
 }
 
