@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Momo — Your Gentle AI Companion</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="{{ '/assets/css/style.css' | relative_url }}">
+    <link rel="stylesheet" href="{{ '/assets/css/cappuccicons.css' | relative_url }}">
+    <link rel="stylesheet" href="#https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined"/>
+    <link rel="icon" type="image/svg+xml" href="{{ '/assets/images/favicon.svg' | relative_url }}">
+    <link rel="alternate icon" type="image/png" href="{{ '/assets/images/favicon.png' | relative_url }}">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: 'var(--color-primary)',
+                        primaryHover: 'var(--color-primary-hover)',
+                        textColor: 'var(--color-text)',
+                        accent: 'var(--color-accent)',
+                        muted: 'var(--color-muted)',
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+
+<body class="flex flex-col min-h-screen">
+
+<nav class="fixed top-0 left-0 right-0 z-50 bg-white/30 backdrop-blur-md border-b border-white/20 px-6 py-4">
+    <div class="max-w-[1200px] mx-auto flex items-center justify-between">
+        <a href="index.html" class="flex items-center gap-3" aria-label="Momo Home">
+            <!-- Scaled-down Flower Icon -->
+            <div class="bg-white/40 rounded-full border border-white/60 shadow-sm w-8 h-8 flex items-center justify-center shrink-0">
+                <i class="cp cp-flower text-primary text-lg"></i>
+            </div>
+            <span class="font-heading font-bold text-xl text-textColor">Momo</span>
+        </a>
+        <div class="flex items-center gap-6 md:gap-8">
+            <a href="features.html" id="nav-features" class="font-heading font-medium text-textColor hover:text-primary transition-colors">Features</a>
+            <a href="demo.html" id="nav-demo" class="font-heading font-medium text-textColor hover:text-primary transition-colors">Demo</a>
+            <a href="index.html#waitlist-section" class="bg-primary text-white font-heading font-bold px-6 py-2 rounded-full hover:bg-primaryHover transition-colors shadow-sm">Waitlist</a>
+        </div>
+    </div>
+</nav>
+
+    <main class="flex-grow flex flex-col justify-center items-center px-6 pt-36 pb-24 relative">
+        {{ content }}
+    </main>
+<!-- Only show this if the current page URL does not contain "demo" -->
+    {% unless page.url contains "demo" %}
+    <div class="text-center pb-12 z-10">
+        <a href="demo.html"
+            class="inline-flex items-center gap-2 text-primary hover:text-primaryHover font-heading font-bold transition-all hover:translate-x-1">
+            <span>Step into the garden (Try interactive demo)</span>
+            <span class="material-symbols-outlined">arrow_right_alt</span>
+        </a>
+    </div>
+    {% endunless %}
+    <footer class="bg-white/10 backdrop-blur-sm py-8 border-t border-white/20 text-center z-10 font-sans text-sm text-textColor/60 mt-auto">
+    <p>Built with help from Gemini and hosted as a Jekyll site on GitHub Pages.</p>
+</footer>
+
+    <script src="{{ '/assets/js/script.js' | relative_url }}"></script>
+</body>
+
+</html>

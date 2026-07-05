@@ -1,0 +1,88 @@
+---
+layout: default
+title: Momo — Your Gentle AI Companion
+---
+
+<!-- Added responsive grid wrapper here -->
+<div class="max-w-[1200px] w-full mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center z-10">
+
+    <!-- Left Copy -->
+    <div class="space-y-6">
+        <span class="text-primary font-heading font-bold text-sm tracking-wider uppercase">Live Experience</span>
+        <h2 class="font-heading text-4xl md:text-5xl font-bold leading-tight text-textColor">
+            Experience emotional intelligence.
+        </h2>
+        <p class="font-sans text-lg text-textColor/80 leading-relaxed">
+            Our chat screen design offers a gentle, non-judgmental digital architecture to reflect on issues and
+            decompress. Share whatever sits heavy on your mind today.
+        </p>
+
+        <!-- Interactive Input Form -->
+        <div class="pt-2">
+            <form class="waitlist-form w-full max-w-[400px]">
+                <div class="sakura-glass p-1.5 flex items-center rounded-full h-[52px] border border-white/60">
+                    <label for="demo-waitlist-email" class="sr-only">Email Address</label>
+                    <input id="demo-waitlist-email" type="email" placeholder="your@email.com" required
+                        class="flex-grow bg-transparent border-none text-textColor placeholder:text-muted focus:ring-0 text-sm px-4 outline-none font-sans">
+                    <button type="submit"
+                        class="bg-primary hover:bg-primaryHover text-white font-heading font-bold text-sm px-6 h-full rounded-full transition-all duration-300">
+                        Bloom
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Right Screen (Dynamic Mockup Container) -->
+    <div class="relative w-full max-w-[480px] h-[580px] mx-auto">
+
+        <!-- Glassmorphic Chat Shell -->
+        <div class="sakura-glass rounded-[32px] w-full h-full relative z-10 flex flex-col overflow-hidden">
+
+            <!-- Header -->
+            <div class="px-6 py-4 border-b border-white/30 flex items-center gap-3 bg-white/20">
+                <div class="w-10 h-10 rounded-full bg-white flex items-center justify-center text-primary shadow-sm">
+                    <i class="cp cp-flower text-primary text-xl"></i>
+                </div>
+                <div>
+                    <h3 class="font-heading font-bold text-textColor text-base">Momo</h3>
+                    <p class="text-xs text-muted font-sans font-medium">Listening gently</p>
+                </div>
+            </div>
+
+            <!-- Chat Bubble Workspace -->
+            <div id="chat-messages" class="flex-grow p-6 space-y-4 overflow-y-auto custom-scrollbar flex flex-col bg-white/10" role="log" aria-live="polite">
+
+                <!-- Default Momo Prompt -->
+                <div class="flex items-start gap-3 w-full">
+                    <div class="bubble-momo text-textColor py-3 px-5 shadow-sm font-sans max-w-[75%]">
+                        How is your heart today?
+                    </div>
+                </div>
+
+                <!-- Default Simulated User Reply -->
+                <div class="flex items-start justify-end gap-3 w-full">
+                    <div class="bubble-user text-textColor py-3 px-5 shadow-sm font-sans max-w-[75%]">
+                        A bit overwhelmed, honestly.
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Interactive Input Footer -->
+            <div class="p-4 border-t border-white/30 bg-white/25">
+                <form id="chat-form" class="bg-white/60 rounded-full flex items-center px-4 py-2 border border-white/80 focus-within:border-primary transition-all">
+                    <label for="chat-input" class="sr-only">Message Momo</label>
+                    <input id="chat-input" type="text" placeholder="Type gently..." required
+                        class="bg-transparent border-none focus:ring-0 text-textColor placeholder-muted w-full font-sans text-sm py-1 outline-none">
+                    <button type="submit" class="text-primary hover:text-primaryHover transition-colors flex items-center justify-center p-1" aria-label="Send Message">
+                        <span class="material-symbols-outlined">arrow_right_alt</span>
+                    </button>
+                </form>
+            </div>
+
+        </div>
+
+    </div>
+
+</div> <!-- Closed grid wrapper -->
