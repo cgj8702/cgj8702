@@ -1,0 +1,171 @@
+/* style.css */
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&family=Zen+Maru+Gothic:wght@500;700&display=swap');
+
+:root {
+    --color-primary: #ffa2d1ff;
+    --color-primary-hover: #ff87c3ff;
+    --color-bg-start: #FDFBFB;
+    --color-bg-end: #FDFBFB;
+    --color-surface: rgba(255, 255, 255, 0.45);
+    --color-surface-highlight: rgba(255, 255, 255, 0.8);
+    --color-text: #5A4B54;
+    --color-accent: #fef5f9ff;
+    --color-muted: #9CA3AF;
+
+    --font-heading: 'Zen Maru Gothic', sans-serif;
+    --font-body: 'Nunito', sans-serif;
+
+    --radius-lg: 32px;
+    --radius-pill: 9999px;
+    
+    /* Chat Bubble Radii */
+    --radius-bubble-momo: 16px 16px 16px 4px;
+    --radius-bubble-user: 16px 16px 4px 16px;
+
+    --glass-blur: blur(16px);
+    --glass-shadow: 0 12px 40px rgba(217, 140, 179, 0.12);
+    --glass-shadow-hover: 0 20px 48px rgba(217, 140, 179, 0.22);
+    --glass-rounded-corners: 16px;
+
+
+}
+
+body {
+    background: linear-gradient(135deg, var(--color-bg-start) 0%, var(--color-bg-end) 100%);
+    font-family: var(--font-body);
+    color: var(--color-text);
+    min-height: 100vh;
+    margin: 0;
+    overflow-x: hidden;
+}
+
+/* Mobile-first: Solid-ish fallback by default */
+.sakura-glass {
+    background-color: rgba(255, 255, 255, 0.9);
+    border: 1px solid rgba(255, 255, 255, 1);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    transition: background-color 0.2s ease-in-out;
+}
+
+/* Mobile Hover State (Slight highlight) */
+.sakura-glass:hover {
+    background-color: rgba(255, 255, 255, 0.95);
+}
+
+/* Desktop-only: Elegant frosted glass */
+@media (min-width: 768px) {
+    .sakura-glass {
+        background-color: rgba(255, 255, 255, 0.4);
+        border: 1px solid rgba(255, 255, 255, 0.6);
+        backdrop-filter: var(--glass-blur);
+        -webkit-backdrop-filter: var(--glass-blur);
+    }
+
+    /* Desktop Hover State (Subtle frosted glow) */
+    .sakura-glass:hover {
+        background-color: rgba(255, 255, 255, 0.6);
+    }
+}
+
+/* Waitlist Glow Effect */
+.waitlist-focused {
+    border-color: var(--color-primary);
+    box-shadow: 0 0 15px rgba(217, 140, 179, 0.35);
+}
+
+/* Particle Canvas Container */
+#sakura-canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: -1;
+    pointer-events: none;
+}
+
+/* Floating Animations */
+@keyframes float {
+    0% { transform: translateY(0px) rotate(0deg); }
+    50% { transform: translateY(-6px) rotate(1deg); }
+    100% { transform: translateY(0px) rotate(0deg); }
+}
+
+@keyframes float-reverse {
+    0% { transform: translateY(0px) rotate(0deg); }
+    50% { transform: translateY(6x) rotate(-1deg); }
+    100% { transform: translateY(0px) rotate(0deg); }
+}
+
+.ambient-float {
+    animation: float 8s ease-in-out infinite;
+}
+
+.ambient-float-reverse {
+    animation: float-reverse 10s ease-in-out infinite;
+}
+
+/* Custom Scrollbar for Chat Mockup */
+.custom-scrollbar::-webkit-scrollbar {
+    width: 6px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+    background-color: rgba(217, 140, 179, 0.3);
+    border-radius: 10px;
+}
+
+/* Chat Bubbles */
+.bubble-momo {
+    background-color: var(--color-accent);
+    color: var(--color-text);
+    border-radius: var(--radius-bubble-momo);
+}
+
+.bubble-user {
+    background-color: white;
+    color: var(--color-text);
+    border-radius: var(--radius-bubble-user);
+}
+
+/* Accessibility */
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
+}
+/* fallback */
+@font-face {
+  font-family: 'Material Symbols Outlined';
+  font-style: normal;
+  font-weight: 400;
+  src: url(https://fonts.gstatic.com/s/materialsymbolsoutlined/v355/kJF1BvYX7BgnkSrUwT8OhrdQw4oELdPIeeII9v6oDMzByHX9rA6RzaxHMPdY43zj-jCxv3fzvRNU22ZXGJpEpjC_1v-p_4MrImHCIJIZrDCvHOej.woff2) format('woff2');
+}
+
+.material-symbols-outlined {
+  font-family: 'Material Symbols Outlined';
+  color: #ffa2d1ff;
+  font-weight: normal;
+  font-style: normal;
+  font-size: 28px;
+  line-height: 1;
+  letter-spacing: normal;
+  text-transform: none;
+  display: inline-block;
+  white-space: nowrap;
+  word-wrap: normal;
+  direction: ltr;
+  -webkit-font-smoothing: antialiased;
+}
