@@ -4,70 +4,37 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Momo — Your Gentle AI Companion</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Personal Site</title>
     <link rel="stylesheet" href="{{ '/assets/css/style.css' | relative_url }}">
     <link rel="stylesheet" href="{{ '/assets/css/cappuccicons.css' | relative_url }}">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined"/>
     <link rel="icon" type="image/svg+xml" href="{{ '/assets/images/favicon.svg' | relative_url }}">
     <link rel="alternate icon" type="image/png" href="{{ '/assets/images/favicon.png' | relative_url }}">
-
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        primary: 'var(--color-primary)',
-                        primaryHover: 'var(--color-primary-hover)',
-                        textColor: 'var(--color-text)',
-                        accent: 'var(--color-accent)',
-                        muted: 'var(--color-muted)',
-                    }
-                }
-            }
-        }
-    </script>
 </head>
-
-<body class="flex flex-col min-h-screen">
-
-<nav class="sakura-glass fixed top-0 left-0 right-0 z-50 border-b px-4 py-3 sm:px-6 sm:py-4">
-    <div class="max-w-[1200px] mx-auto flex items-center justify-between">
-        <!-- Logo Area: Slightly smaller icon & text on mobile -->
-        <a href="index.html" class="flex items-center gap-2 sm:gap-3" aria-label="Momo Home">
-            <div class="sakura-glass ambient-float rounded-full shadow-sm w-7 h-7 sm:w-8 sm:h-8 flex items-center justify-center shrink-0">
-                <i class="cp cp-flower text-primary text-base sm:text-lg"></i>
-            </div>
-            <span class="font-heading font-bold text-lg sm:text-xl text-textColor">Momo</span>
-        </a>
-
-        <!-- Links Area: Cozy gaps and smaller font on mobile, expanding on tablet/desktop -->
-        <div class="flex items-center gap-3.5 sm:gap-6 md:gap-8">
-            <a href="features.html" id="nav-features" class="font-heading font-medium text-sm sm:text-base text-textColor hover:text-primary transition-colors">Features</a>
-            <a href="demo.html" id="nav-demo" class="font-heading font-medium text-sm sm:text-base text-textColor hover:text-primary transition-colors">Demo</a>
-            <a href="index.html#waitlist-section" class="bg-primary text-white font-heading font-bold px-4 py-1.5 sm:px-6 sm:py-2 text-sm sm:text-base rounded-full hover:bg-primaryHover transition-colors shadow-sm whitespace-nowrap">Waitlist</a>
+<body>
+    <nav class="navbar">
+        <div class="nav-left">
+          <span class="logo-text"><a href="index.html"><h1>cgj8702</h1></a></span>
         </div>
-    </div>
-</nav>
-
-    <main class="flex-grow flex flex-col justify-center items-center px-6 pt-36 pb-24 relative">
+      
+        <!-- Right section: The 3 links -->
+        <div class="nav-right">
+          <a href="https://github.com/cgj8702/cgj8702"><h1>Site Repo</h1></a>
+          <a href="https://github.com/apps/hannibal-hub-agents"><h1>GitHub App</h1></a>
+        </div>
+      </nav>
+    <main>
         {{ content }}
     </main>
-<!-- Only show this if the current page URL does not contain "demo" -->
-    {% unless page.url contains "demo" %}
-    <div class="text-center pb-12 z-10">
-        <a href="demo.html"
-            class="inline-flex items-center gap-2 text-primary hover:text-primaryHover font-heading font-bold transition-all hover:translate-x-1">
-            <span>Step into the garden (Try interactive demo)</span>
-            <span class="material-symbols-outlined">arrow_right_alt</span>
-        </a>
-    </div>
-    {% endunless %}
-    <button id="toggle-petals-btn" class="sakura-glass ambient-float fixed bottom-6 right-6 z-40 text-textColor rounded-full px-5 py-2.5 shadow-sm transition-all flex items-center gap-2 text-sm font-heading">
-    <i class="cp cp-flower"></i>
-    <span id="petals-text">Turn Petals On</span></button>
+    <button id="toggle-petals-btn">
+        <i class="cp cp-flower"></i>
+        <span id="petals-text">Turn Petals On</span></button>
+    
+        <script src="{{ '/assets/js/script.js' | relative_url }}"></script>
+    <footer>
+        <div>
+        <p>Made using Gemini, W3Schools, and Github Pages.</p>
+        </div>
+    </footer>
 
-    <script src="{{ '/assets/js/script.js' | relative_url }}"></script>
 </body>
-
-</html>
